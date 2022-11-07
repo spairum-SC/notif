@@ -23,25 +23,25 @@ cron.schedule('30 * * * *', function() {
     console.log('running a task every jam 6');
     clientMq.publish('test', 'Hello mqtt');
     let data = {
-        "message": "Assalamualaikum, Selamat Pagi. ",
+      "message": "Assalamualaikum, Selamat Pagi.",
         "grup" : "New User Spairum"
     }
     clientMq.publish('sendGrup', JSON.stringify(data));
-    setInterval(pesan2, 3500);
+    setTimeout(pesan2, 4000);
   });
   cron.schedule('* 6 * * *', function() {
     console.log('running a task every jam 6');
     clientMq.publish('test', 'Hello mqtt');
     let data = {
-        "message": "Udah Jam 6 WIB, Yuk Absen ",
+      "message": "Selamat Pagi, semoga harimu menyenangkan.",
         "grup" : "New User Spairum"
     }
     clientMq.publish('sendGrup', JSON.stringify(data));
-    setInterval(pesan2, 3500);
+    setTimeout(pesan2, 3500);
   });
   function pesan2() {
     let data = {
-        "message": "Yuk absen yang hari ini bangun Pagi ",
+      "message": "Cuma mau kasi info sekarang jam " + new Date().getHours() + ":" + new Date().getMinutes(),
         "grup" : "New User Spairum"
     }
     clientMq.publish('sendGrup', JSON.stringify(data));
