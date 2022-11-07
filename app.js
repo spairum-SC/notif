@@ -12,9 +12,9 @@ const { clientMq } = require('./connection/mqtt');
 cron.schedule('30 * * * *', function() {
     console.log('running a task every minute');
     clientMq.publish('test', 'Hello mqtt');
-    let date = new Date();
+    // let date = new Date();
     let data = {
-        "message": "pesan per menit + " + date,
+      "message": "pesan per 30 menit + " + new Date().getHours() + ":" + new Date().getMinutes(),
         "number" : "0895321701798"
     }
     clientMq.publish('sendPesan', JSON.stringify(data));
