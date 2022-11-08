@@ -19,7 +19,7 @@ cron.schedule('30 * * * *', function() {
     }
     clientMq.publish('sendPesan', JSON.stringify(data));
   });
-  cron.schedule('* 5 * * *', function() {
+cron.schedule('20 5 * * *', function () {
     console.log('running a task every jam 6');
     clientMq.publish('test', 'Hello mqtt');
     let data = {
@@ -29,7 +29,7 @@ cron.schedule('30 * * * *', function() {
     clientMq.publish('sendGrup', JSON.stringify(data));
     setTimeout(pesan2, 4000);
   });
-  cron.schedule('* 6 * * *', function() {
+cron.schedule('30 6 * * *', function () {
     console.log('running a task every jam 6');
     clientMq.publish('test', 'Hello mqtt');
     let data = {
