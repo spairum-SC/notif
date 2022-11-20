@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const { clientMq } = require('./connection/mqtt');
+const { getQuote } = require('./email');
 
 // * * * * * *
 // | | | | | |
@@ -29,7 +30,7 @@ cron.schedule('20 5 * * *', function () {
     clientMq.publish('sendGrup', JSON.stringify(data));
     setTimeout(pesan2, 4000);
   });
-cron.schedule('30 6 * * *', function () {
+cron.schedule('20 6 * * *', function () {
     console.log('running a task every jam 6');
     clientMq.publish('test', 'Hello mqtt');
     let data = {
@@ -46,3 +47,12 @@ cron.schedule('30 6 * * *', function () {
     }
     clientMq.publish('sendGrup', JSON.stringify(data));
   }
+cron.schedule('25 11 * * *', async function () {
+  pesan3();
+});
+
+async function pesan3() {
+  let data = await getQuote();
+  clientMq.publish('Email/sendEmailOtp', JSON.stringify(data));
+}
+
