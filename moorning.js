@@ -1,7 +1,15 @@
+require('dotenv').config();
 const axios = require('axios');
 const cron = require('node-cron');
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.JWT_SECRET_KEY;
+const payload = {
+    gid: "Server Side",
+  };
 
 function kirimpesan(telp, massage) {
+    try {
+    let token = jwt.sign(payload, secretKey);
     let data = JSON.stringify({
         "message": massage,
         "telp": telp
@@ -12,7 +20,8 @@ function kirimpesan(telp, massage) {
         maxBodyLength: Infinity,
         url: 'http://192.168.254.250:9300/api/wa/send',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: "Bearer " + token
         },
         data: data
     };
@@ -23,6 +32,9 @@ function kirimpesan(telp, massage) {
         .catch((error) => {
             console.log(error);
         });
+    } catch (error) {
+        console.log(error);
+    }
 }
 // array pesan
 let pesan = [
@@ -57,7 +69,7 @@ let greeting = [
     "Beautiful",
 ];
 
-cron.schedule('34 5 * * *', function () {
+cron.schedule('23 5 * * *', function () {
     console.log('running a task every jam 6');
     let random = Math.floor(Math.random() * pesan.length);
     kirimpesan('0895704185526', pesan[random])
@@ -67,4 +79,7 @@ cron.schedule('15 7 * * *', function () {
     console.log('running a task every jam 6');
     let random = Math.floor(Math.random() * greeting.length);
     kirimpesan('0895704185526', greeting[random])
+});
+cron.schedule('0 1 8 * *', function () {
+    kirimpesan('0895704185526', "Happy anniversary!  I love you more and more each day.")
 });
