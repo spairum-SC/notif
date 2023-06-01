@@ -70,16 +70,17 @@ let greeting = [
 ];
 
 cron.schedule('23 5 * * *', function () {
-    console.log('running a task every jam 6');
+    console.log('running a task every 23 5 * * *');
     let random = Math.floor(Math.random() * pesan.length);
     kirimpesan('0895704185526', pesan[random])
 });
 
 cron.schedule('15 7 * * *', function () {
-    console.log('running a task every jam 6');
+    console.log('running a task every jam 15 7 * * *');
     let random = Math.floor(Math.random() * greeting.length);
     kirimpesan('0895704185526', greeting[random])
 });
 cron.schedule('0 1 8 * *', function () {
+    console.log('running a task every jam 15 7 * * *');
     kirimpesan('0895704185526', "Happy anniversary!  I love you more and more each day.")
 });
